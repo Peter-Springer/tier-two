@@ -6,8 +6,9 @@ module.exports = {
     test: "mocha!./test/unit/test-index.js"
   },
   output: {
-    path: __dirname,
-    filename: "[name].bundle.js"
+      path: path.join(__dirname, 'public'),
+      publicPath: "/public/",
+      filename: '[name].bundle.js'
   },
   module: {
    loaders: [
@@ -20,4 +21,5 @@ module.exports = {
  resolve: {
    extensions: ['', '.js', '.json', '.scss', '.css']
  }
+ // devtool: 'cheap-source-map'
 };
