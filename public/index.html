@@ -8,8 +8,19 @@
     <h1>hello</h1>
     <button id="sign-in">Sign in</button>
     <button id="sign-out">Sign Out</button>
-    <input id="message" type="text" name="name" value="">
+    <!-- <input id="message" type="text" name="name" value=""> -->
     <button id="send-button" type="button" name="button">test</button>
+
+    <form id="message-form" action="#">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" id="message">
+        <label class="mdl-textfield__label" for="message">Message</label>
+      </div>
+      <button id="submit" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+        Send
+      </button>
+    </form>
+
   <script src="./main.bundle.js"></script>
   </body>
 </html>
