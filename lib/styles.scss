@@ -1,3 +1,60 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  flex-direction: column;
+  background-color: #03a785;
+  // font-family: 'Lobster', cursive;
+  // font-family: 'Coiny', cursive;
+  font-family: 'Bree Serif', serif;
+}
+
 h1 {
-  color: green;
+  color: white;
+  font-size: 80px;
+  margin-bottom: 5px;
+}
+
+h2 {
+  color: white;
+}
+
+.login-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #49cc95;
+  width: 30%;
+}
+
+button {
+  font-size: 15px;
+  margin: 10px;
+  color: white;
+  border: none;
+}
+
+#facebook-login {
+  height: 50px;
+  width: 300px;
+  background-color: blue;
+}
+
+#twitter-login {
+  height: 50px;
+  width: 300px;
+  background-color: #7db3fa;
+}
+
+#sign-in {
+  height: 50px;
+  width: 300px;
+  background-color: red;
+}
+
+.logo-size {
+  height: 20px;
+  float: left;
 }
