@@ -12,7 +12,7 @@ module.exports = {
   },
   module: {
    loaders: [
-     { test: /\.js$/, exclude: '/node_modules/', loader: 'babel-loader' },
+     {test: /\.js?$/, exclude: /node_modules/, loader: 'babel-loader'},
      { test: /\.css$/, loader: "style!css" },
      { test: /\.scss$/, loader: "style!css!sass" },
     //  { test: /\.scss$/, loader: 'style!css!resolve-url!sass?sourceMap' },
@@ -25,7 +25,7 @@ module.exports = {
    ]
  },
  resolve: {
-   extensions: ['', '.js', '.json', '.scss', '.css']
+   extensions: ['', '.scss', '.css', '.js', '.json', '.jsx']
  }
  // devtool: 'cheap-source-map'
 };
