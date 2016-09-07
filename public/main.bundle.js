@@ -126,7 +126,7 @@
 	        return _react2.default.createElement(
 	          'div',
 	          { className: 'Main-Screen' },
-	          _react2.default.createElement('sayHi', null)
+	          _react2.default.createElement('sayHi', { className: 'sayHi' })
 	        );
 	      } else {
 	        return _react2.default.createElement(
@@ -5093,8 +5093,9 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
+	exports.default = sayHi;
 
 	var _react = __webpack_require__(2);
 
@@ -5103,17 +5104,13 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var firebase = __webpack_require__(37);
-
-
 	function sayHi() {
-	  return _react2.default.createElement(
-	    'h1',
-	    null,
-	    'Hi!'
-	  );
+	    return _react2.default.createElement(
+	        'h1',
+	        null,
+	        'Hi'
+	    );
 	}
-
-	exports.default = sayHi;
 
 /***/ },
 /* 41 */
