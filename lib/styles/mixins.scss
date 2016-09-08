@@ -1,0 +1,71 @@
+@mixin flex-box {
+  display: flex;
+  display: -webkit-flex;
+  display: -webkit-box;
+  display: -ms-box;
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius:$radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+// @mixin mobile {
+//   @media (max-width: #{$tablet}) {
+//     @content;
+//   }
+// }
+//
+// @mixin tablet {
+//   @media (min-width: #{$tablet}) and (max-width: #{$desktop}) {
+//     @content;
+//   }
+// }
+//
+// @mixin desktop {
+//   @media (min-width: #{$desktop}) {
+//     @content;
+//   }
+// }
+
+
+.title {
+  @include flex-box;
+  font-family: $title-font;
+  color: $primary-text-color;
+  font-size: 3em;
+}
+
+
+//buttons: not sure which is better
+@mixin social-media-button($color) {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: $color;
+}
+
+//OR
+.social-media-button {
+  @include flex-box;
+  flex-direction: row;
+  justify-content: center;
+  color: white;
+}
+
+.google {
+  @extend .social-media-button;
+  background-color: $google-button-color;
+}
+
+.facebook {
+  @extend .social-media-button;
+  background-color: $facebook-button-color;
+}
+
+.twitter {
+  @extend .social-media-button;
+  background-color: $twitter-button-color;
+}
