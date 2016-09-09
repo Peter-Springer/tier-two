@@ -1,8 +1,13 @@
-@mixin flex-box {
+@mixin flex {
   display: flex;
   display: -webkit-flex;
-  display: -webkit-box;
   display: -ms-box;
+}
+
+@mixin flex-center {
+  @include flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @mixin border-radius($radius) {
@@ -12,27 +17,8 @@
   border-radius: $radius;
 }
 
-// @mixin mobile {
-//   @media (max-width: #{$tablet}) {
-//     @content;
-//   }
-// }
-//
-// @mixin tablet {
-//   @media (min-width: #{$tablet}) and (max-width: #{$desktop}) {
-//     @content;
-//   }
-// }
-//
-// @mixin desktop {
-//   @media (min-width: #{$desktop}) {
-//     @content;
-//   }
-// }
-
-
-.title {
-  @include flex-box;
+.main-text {
+  @include flex;
   font-family: $title-font;
   color: $primary-text-color;
   font-size: 3em;
@@ -40,16 +26,9 @@
 
 
 //buttons: not sure which is better
-@mixin social-media-button($color) {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  background-color: $color;
-}
 
-//OR
 .social-media-button {
-  @include flex-box;
+  @include flex;
   flex-direction: row;
   justify-content: center;
   color: white;

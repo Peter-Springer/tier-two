@@ -1,3 +1,13 @@
-h1 {
-  color: green;
+@import 'variables';
+@import 'mixins';
+@import 'login';
+@import 'main-screen';
+
+
+body {
+  color: white;
+  @include flex-center;
+  height: 100vh;
+  width: 100%;
+  background-color: $background-color;
 }
