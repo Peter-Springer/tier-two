@@ -1,0 +1,15 @@
+@import 'variables';
+@import 'mixins';
+
+
+section {
+  @include flex;
+  height: 70vh;
+  align-items: flex-start;
+}
+
+.LoginButton {
+  @extend .google;
+  height: 50px;
+  width: 200px;
+}

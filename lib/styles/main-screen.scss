@@ -1,0 +1,26 @@
+@import 'variables';
+@import 'mixins';
+
+
+#application {
+  @include flex-center;
+}
+
+h1 {
+  @extend .main-text;
+}
+
+h2 {
+  text-align: center;
+  width: 100%;
+}
+
+div {
+  @include flex-center;
+}
+
+section {
+  @include flex-center;
+  flex-direction: column;
+  font-family: $title-font;
+}
