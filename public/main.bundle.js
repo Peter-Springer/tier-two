@@ -53,7 +53,6 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var $ = __webpack_require__(42);
-	// const firebase = require('./firebase');
 	var style = __webpack_require__(43);
 	var React = __webpack_require__(2);
 	var ReactDOM = __webpack_require__(47);
@@ -4397,6 +4396,11 @@
 	      return _react2.default.createElement(
 	        'section',
 	        null,
+	        _react2.default.createElement(
+	          'h1',
+	          { className: 'welcome-h1' },
+	          'Welcome to Beer Funds'
+	        ),
 	        _react2.default.createElement(_ActionButton2.default, {
 	          handleClick: this.handleClick,
 	          text: 'LOGIN WITH GOOGLE'
@@ -4407,15 +4411,6 @@
 
 	  return SignIn;
 	}(_react2.default.Component);
-
-	// saveMessage(e) {
-	//     this.messagesRef = this.database.ref();
-	//     e.preventDefault();
-	//       // Add a new message entry to the Firebase Database.
-	//       this.messagesRef.push({
-	//         text: this.messageInput.value,
-	//     });
-	//   };
 
 	exports.default = SignIn;
 
@@ -5168,7 +5163,7 @@
 	            null,
 	            'How much do you want to spend on beer this month?'
 	          ),
-	          _react2.default.createElement('input', { className: 'budget-input' }),
+	          _react2.default.createElement('input', { type: 'number', className: 'budget-input' }),
 	          _react2.default.createElement(
 	            'button',
 	            {
@@ -5186,22 +5181,22 @@
 	          'section',
 	          null,
 	          _react2.default.createElement(
-	            'h1',
+	            'h2',
 	            null,
-	            'Welcome back ',
+	            'Welcome back, ',
 	            auth.currentUser.displayName
 	          ),
 	          _react2.default.createElement(
-	            'h2',
+	            'h1',
 	            null,
-	            ' Your Monthly Budget: ',
-	            this.state.userBudget
+	            ' Remaining Funds: $',
+	            this.state.remainingBudget
 	          ),
 	          _react2.default.createElement(
 	            'h2',
 	            null,
-	            ' Remaining Sweet Butts: ',
-	            this.state.remainingBudget
+	            ' Out of: $',
+	            this.state.userBudget
 	          ),
 	          _react2.default.createElement(
 	            'button',
@@ -5210,13 +5205,13 @@
 	              } },
 	            'Sign Out'
 	          ),
-	          _react2.default.createElement('input', { className: 'add-purchase-input' }),
+	          _react2.default.createElement('input', { type: 'number', className: 'add-purchase-input' }),
 	          _react2.default.createElement(
 	            'button',
 	            { onClick: function onClick() {
 	                return _this3.purchases.updateRemainingBudget();
 	              } },
-	            'click'
+	            'Add Last Purchase'
 	          )
 	        );
 	      }
@@ -15415,8 +15410,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../node_modules/css-loader/index.js!./../node_modules/sass-loader/index.js!./styles.scss", function() {
-				var newContent = require("!!./../node_modules/css-loader/index.js!./../node_modules/sass-loader/index.js!./styles.scss");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js!./styles.scss", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js!./styles.scss");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -15434,7 +15429,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 90vh;\n  flex-direction: column;\n  background-color: #03a785;\n  font-family: 'Bree Serif', serif; }\n", ""]);
+	exports.push([module.id, ".main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .LoginButton, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white; }\n\n.google, .LoginButton {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\n.main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .LoginButton, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white; }\n\n.google, .LoginButton {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\nsection {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  height: 70vh;\n  align-items: flex-start; }\n\n.LoginButton {\n  height: 50px;\n  width: 200px; }\n\n.main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .LoginButton, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white; }\n\n.google, .LoginButton {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\n#application {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center; }\n\nh2 {\n  text-align: center;\n  width: 100%; }\n\ndiv {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center; }\n\nsection {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  font-family: \"Lobster Two\", cursive; }\n\nbody {\n  color: white;\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n  width: 100%;\n  background-color: #2FA68B; }\n", ""]);
 
 	// exports
 
