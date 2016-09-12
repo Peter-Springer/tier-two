@@ -2,15 +2,22 @@
 @import 'mixins';
 
 
-section {
+div {
   @include flex;
-  height: 70vh;
+  flex-direction: column;
+  height: 100vh;
   align-items: flex-start;
 }
 
-.LoginButton {
+.beermug {
+  // margin-top: 5vh;
+  margin-bottom: 5vh;
+}
+
+.google-login {
   @extend .google;
-  
   height: 50px;
   width: 200px;
+  font-size: 1em;
+  font-family: $secondary-font;
 }
