@@ -4350,9 +4350,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _ActionButton = __webpack_require__(36);
+	var _loginButton = __webpack_require__(36);
 
-	var _ActionButton2 = _interopRequireDefault(_ActionButton);
+	var _loginButton2 = _interopRequireDefault(_loginButton);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4401,8 +4401,9 @@
 	          { className: 'welcome-h1' },
 	          'Welcome to Beer Funds'
 	        ),
-	        _react2.default.createElement(_ActionButton2.default, {
+	        _react2.default.createElement(_loginButton2.default, {
 	          handleClick: this.handleClick,
+	          image: '../../imgs/google-plus-1.svg',
 	          text: 'LOGIN WITH GOOGLE'
 	        })
 	      );
@@ -4449,6 +4450,7 @@
 	      return React.createElement(
 	        "button",
 	        { onClick: this.props.handleClick, className: "LoginButton" },
+	        React.createElement("img", { src: this.props.image }),
 	        this.props.text
 	      );
 	    }
@@ -5131,8 +5133,8 @@
 
 	      this.monthlyBudgetReference.on('value', function (snapshot) {
 	        var budget = snapshot.val();
-	        var newBudgiePoo = parseInt(budget.text);
-	        _this2.setState({ userBudget: newBudgiePoo });
+	        var newBudget = parseInt(budget.text);
+	        _this2.setState({ userBudget: newBudget });
 
 	        _this2.userRemainingBudgetReference.on('value', function (snapshot) {
 	          var remainingBudget = snapshot.val();
@@ -5148,6 +5150,16 @@
 	      this.userMonthlyBudgetRef = database.ref(auth.currentUser.uid + '/monthlyBudget');
 	      this.userMonthlyBudgetRef.set({ text: document.querySelector('.budget-input').value });
 	      this.userRemainingBudgetRef.set({ text: document.querySelector('.budget-input').value });
+	      document.querySelector('.budget-input').value = "";
+	    }
+	  }, {
+	    key: 'resetBudget',
+	    value: function resetBudget() {
+	      this.userRemainingBudgetRef = database.ref(auth.currentUser.uid + '/remainingMonthlyBudget');
+	      this.userMonthlyBudgetRef = database.ref(auth.currentUser.uid + '/monthlyBudget');
+	      this.userMonthlyBudgetRef.set({ text: document.querySelector('.reset-budget').value });
+	      this.userRemainingBudgetRef.set({ text: document.querySelector('.reset-budget').value });
+	      document.querySelector('.reset-budget').value = "";
 	    }
 	  }, {
 	    key: 'render',
@@ -5212,6 +5224,15 @@
 	                return _this3.purchases.updateRemainingBudget();
 	              } },
 	            'Add Last Purchase'
+	          ),
+	          _react2.default.createElement('input', { className: 'reset-budget', type: 'number' }),
+	          _react2.default.createElement(
+	            'button',
+	            { className: 'budget-submit',
+	              onClick: function onClick() {
+	                return _this3.resetBudget();
+	              } },
+	            'Reset Budget'
 	          )
 	        );
 	      }
@@ -5306,6 +5327,7 @@
 	      remainingBudget = remainingBudget - lastPurchase;
 
 	      this.remainingBudgetRef.set({ text: remainingBudget });
+	      document.querySelector('.add-purchase-input').value = "";
 	    }
 	  }]);
 
