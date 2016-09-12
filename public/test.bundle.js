@@ -451,8 +451,8 @@
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
-		module.hot.accept("!!/Users/Brett/Desktop/turing/projects/tier-two/node_modules/mocha-loader/node_modules/css-loader/index.js!/Users/Brett/Desktop/turing/projects/tier-two/node_modules/mocha/mocha.css", function() {
-			var newContent = require("!!/Users/Brett/Desktop/turing/projects/tier-two/node_modules/mocha-loader/node_modules/css-loader/index.js!/Users/Brett/Desktop/turing/projects/tier-two/node_modules/mocha/mocha.css");
+		module.hot.accept("!!/Users/peterspringer/front_end/mod_2/tier-two/node_modules/mocha-loader/node_modules/css-loader/index.js!/Users/peterspringer/front_end/mod_2/tier-two/node_modules/mocha/mocha.css", function() {
+			var newContent = require("!!/Users/peterspringer/front_end/mod_2/tier-two/node_modules/mocha-loader/node_modules/css-loader/index.js!/Users/peterspringer/front_end/mod_2/tier-two/node_modules/mocha/mocha.css");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
