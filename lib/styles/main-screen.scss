@@ -24,3 +24,75 @@ section {
   flex-direction: column;
   font-family: $title-font;
 }
+
+.welcome {
+  font-size: 5vh;
+  font-family: $secondary-font;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.you-have {
+  font-size: 4vh;
+  font-family: $secondary-font;
+  margin-bottom: 0px;
+}
+
+.big-budgy {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: 24vh;
+  line-height: 1;
+  color: white;
+   -webkit-text-fill-color: transparent;
+   background: -webkit-linear-gradient(transparent, transparent),
+             url("https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS9NaTVFTvvcKvy6itUcjp8VzBc0iCPuoFPvEXFHG7dZnZ9vA1S" ) repeat;
+   background: -o-linear-gradient(transparent, transparent);
+   -webkit-background-clip: text;
+}
+
+.out-of {
+  font-family: $secondary-font;
+  font-size: 2.5vh;
+}
+
+.view-past-purchases {
+  font-family: $secondary-font;
+  font-size: 2.5vh;
+  text-decoration: underline;
+  margin-top: 25px;
+}
+
+.enter-label {
+  font-family: "Cabin", sans-serif;
+  font-size: 4.5vh;
+  margin-bottom: 2px;
+  margin-top: 27px;
+}
+
+.add-purchase-date {
+  margin-top: 12px;
+}
+
+.add-purchase-description {
+  margin-bottom: 40px;
+}
+
+input {
+  font-size: 2vh;
+  font-family: "Cabin", sans-serif;
+  width: 300px;
+  padding: 4px;
+  border: 7px;
+  margin: 2px;
+  border-radius: 5px;
+}
+
+.submit-purchase-button {
+    font-size: 3vh;
+    font-family: "Lobster Two", cursive;
+    color: white;
+    background-color: #df9512;
+    border-radius: 30px;
+    padding: 11px;
+}
