@@ -118,6 +118,7 @@
 	      user: false,
 	      userBudget: null,
 	      storedBudget: false,
+	      dateOfFirstBudget: null,
 	      remainingBudget: null,
 	      lastPurchase: null,
 	      lastPurchaseDate: null,
@@ -135,17 +136,30 @@
 	    _this.sendPurchaseToDatabase = _this.sendPurchaseToDatabase.bind(_this);
 	    _this.goToPurchasesComponent = _this.goToPurchasesComponent.bind(_this);
 	    _this.getPastPurchases = _this.getPastPurchases.bind(_this);
-	    _this.renderPastPurchases = _this.renderPastPurchases.bind(_this);
-
+	    _this.addDateOfFirstBudget = _this.addDateOfFirstBudget.bind(_this);
 	    return _this;
 	  }
 
 	  _createClass(Application, [{
+	    key: 'addDateOfFirstBudget',
+	    value: function addDateOfFirstBudget() {
+	      var newDate = new Date();
+	      this.state.dateOfFirstBudget = { month: newDate.getMonth(), day: newDate.getDate() };
+	      this.sendDateOfFirstBudgetToDatabase();
+	    }
+	  }, {
+	    key: 'sendDateOfFirstBudgetToDatabase',
+	    value: function sendDateOfFirstBudgetToDatabase() {
+	      var dateOfFirstBudget = this.state.dateOfFirstBudget;
+
+	      this.dateOfFirstBudgetRef.set({ dateOfFirstBudget: dateOfFirstBudget });
+	    }
+	  }, {
 	    key: 'getPastPurchases',
 	    value: function getPastPurchases() {
 	      var _this2 = this;
 
-	      this.allPurchasesReference.on('value', function (snapshot) {
+	      this.allPurchasesRef.on('value', function (snapshot) {
 	        var purchaseList = snapshot.val();
 
 	        if (!purchaseList) {
@@ -155,14 +169,7 @@
 	        _this2.setState({ purchases: _.map(purchaseList, function (value, key) {
 	            return _.extend(value, { key: key });
 	          }) });
-	        console.log(_this2.state.purchases);
 	      });
-	    }
-	  }, {
-	    key: 'renderPastPurchases',
-	    value: function renderPastPurchases() {
-	      // for (var i=0; i<array.length; i++) {
-	      return '<h1>hi</h1>';
 	    }
 	  }, {
 	    key: 'checkForUser',
@@ -176,10 +183,12 @@
 	  }, {
 	    key: 'updateRemainingBudget',
 	    value: function updateRemainingBudget() {
-	      var remaining = this.state.remainingBudget;
-	      var lastPurchase = this.state.lastPurchase;
-	      remaining = remaining - lastPurchase;
-	      this.state.remainingBudget = remaining;
+	      var _state = this.state;
+	      var remainingBudget = _state.remainingBudget;
+	      var lastPurchase = _state.lastPurchase;
+
+	      var newRemaining = remainingBudget - lastPurchase;
+	      this.state.remainingBudget = newRemaining;
 	      this.sendRemainingBudgetToDatabase();
 	    }
 	  }, {
@@ -190,8 +199,7 @@
 	      this.monthlyBudgetRef.on('value', function (snapshot) {
 	        var budget = snapshot.val();
 	        var budgetValue = parseInt(budget.text);
-	        _this4.state.userBudget = budgetValue;
-	        _this4.state.storedBudget = true;
+	        _this4.setState({ userBudget: budgetValue });
 	      });
 	    }
 	  }, {
@@ -224,21 +232,20 @@
 	  }, {
 	    key: 'sendBudgetToDatabase',
 	    value: function sendBudgetToDatabase() {
+	      debugger;
 	      var userBudget = this.state.userBudget;
 
-	      var monthlyBudgetRef = database.ref(auth.currentUser.uid + '/monthlyBudget');
-	      var monthlyRemainingBudget = database.ref(auth.currentUser.uid + '/remainingBudget');
-	      monthlyBudgetRef.set({ text: userBudget });
-	      monthlyRemainingBudget.set({ text: userBudget });
+	      this.monthlyBudgetRef.set({ text: userBudget });
+	      this.remainingBudgetRef.set({ text: userBudget });
 	      this.setState({ userBudget: userBudget, storedBudget: true, remainingBudget: userBudget });
+	      this.addDateOfFirstBudget();
 	    }
 	  }, {
 	    key: 'sendRemainingBudgetToDatabase',
 	    value: function sendRemainingBudgetToDatabase() {
 	      var remainingBudget = this.state.remainingBudget;
 
-	      var remainingBudgetRef = database.ref(auth.currentUser.uid + '/remainingBudget');
-	      remainingBudgetRef.set({ text: remainingBudget });
+	      this.remainingBudgetRef.set({ text: remainingBudget });
 	    }
 	  }, {
 	    key: 'getPurchaseInput',
@@ -261,15 +268,12 @@
 	  }, {
 	    key: 'sendPurchaseToDatabase',
 	    value: function sendPurchaseToDatabase() {
-	      var _state = this.state;
-	      var lastPurchase = _state.lastPurchase;
-	      var lastPurchaseDate = _state.lastPurchaseDate;
-	      var lastPurchaseDescription = _state.lastPurchaseDescription;
-	      //  let lastPurchaseRef = database.ref(`${auth.currentUser.uid}/lastPurchase`);
+	      var _state2 = this.state;
+	      var lastPurchase = _state2.lastPurchase;
+	      var lastPurchaseDate = _state2.lastPurchaseDate;
+	      var lastPurchaseDescription = _state2.lastPurchaseDescription;
 
-	      var allPurchaseRef = database.ref(auth.currentUser.uid + '/allPurchases');
-	      //  lastPurchaseRef.set({text: lastPurchase});
-	      allPurchaseRef.push({ date: lastPurchaseDate, price: lastPurchase, description: lastPurchaseDescription });
+	      this.allPurchasesRef.push({ date: lastPurchaseDate, price: lastPurchase, description: lastPurchaseDescription });
 	      this.updateRemainingBudget();
 	    }
 	  }, {
@@ -291,8 +295,10 @@
 	          }
 	        });
 	      }
+
 	      if (this.state.storedBudget) {
 	        return _react2.default.createElement(_HomeScreen2.default, {
+	          getUserName: auth.currentUser.displayName,
 	          remainingBudget: this.state.remainingBudget,
 	          userBudget: this.state.userBudget,
 	          getDateInput: this.getDateInput,
@@ -300,9 +306,9 @@
 	          getDescriptionInput: this.getDescriptionInput,
 	          sendPurchaseToDatabase: this.sendPurchaseToDatabase,
 	          goToPurchasesComponent: this.goToPurchasesComponent
-
 	        });
 	      }
+
 	      if (this.state.user) {
 	        return _react2.default.createElement(_SetBudget2.default, {
 	          getBudget: this.getBudgetInput,
@@ -315,7 +321,7 @@
 	      }
 	    }
 	  }, {
-	    key: 'allPurchasesReference',
+	    key: 'allPurchasesRef',
 	    get: function get() {
 	      return database.ref(auth.currentUser.uid + '/allPurchases');
 	    }
@@ -328,6 +334,11 @@
 	    key: 'remainingBudgetRef',
 	    get: function get() {
 	      return database.ref(auth.currentUser.uid + '/remainingBudget');
+	    }
+	  }, {
+	    key: 'dateOfFirstBudgetRef',
+	    get: function get() {
+	      return database.ref(auth.currentUser.uid + '/dateOfFirstBudget');
 	    }
 	  }]);
 
@@ -5255,24 +5266,33 @@
 	        'section',
 	        null,
 	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'You have:',
+	          'p',
+	          { className: 'welcome' },
+	          'Welcome Back ',
+	          this.props.getUserName
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          { className: 'you-have' },
+	          'You have:'
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          { className: 'big-budgy' },
+	          '$',
 	          this.props.remainingBudget
 	        ),
 	        _react2.default.createElement(
-	          'h3',
-	          null,
-	          ' Out of: ',
+	          'p',
+	          { className: 'out-of' },
+	          '(Out of Beer Budget $',
 	          this.props.userBudget,
-	          ' '
+	          ')'
 	        ),
 	        _react2.default.createElement(
-	          'button',
-	          {
-	            className: 'view-past-purchases',
-	            onClick: this.props.goToPurchasesComponent },
-	          'View Past Purchases'
+	          'p',
+	          { className: 'enter-label' },
+	          'Enter New Purchase Info:'
 	        ),
 	        _react2.default.createElement('input', {
 	          className: 'add-purchase-date',
@@ -5283,7 +5303,7 @@
 	        _react2.default.createElement('input', {
 	          className: 'add-purchase-value',
 	          type: 'number',
-	          placeholder: 'Add a purchase',
+	          placeholder: 'Purchase Cost',
 	          onChange: this.props.getPurchaseInput
 	        }),
 	        _react2.default.createElement('input', {
@@ -5297,7 +5317,14 @@
 	          {
 	            className: 'submit-purchase-button',
 	            onClick: this.props.sendPurchaseToDatabase },
-	          'Submit purchase'
+	          'Submit Purchase'
+	        ),
+	        _react2.default.createElement(
+	          'a',
+	          {
+	            className: 'view-past-purchases',
+	            onClick: this.props.goToPurchasesComponent },
+	          'View Past Purchases'
 	        )
 	      );
 	    }
@@ -32378,7 +32405,7 @@
 
 
 	// module
-	exports.push([module.id, ".main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .submit-budget-button, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login, .submit-budget-button {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\n.main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .submit-budget-button, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login, .submit-budget-button {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\ndiv {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: column;\n  height: 100vh;\n  align-items: flex-start; }\n\n.beermug {\n  margin-bottom: 5vh;\n  height: 30vh;\n  margin-left: 5vh; }\n\n.google-login {\n  height: 50px;\n  width: 200px;\n  font-size: 1em;\n  font-family: \"Cabin\", sans-serif; }\n\n.main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .submit-budget-button, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login, .submit-budget-button {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\n.prompt {\n  font-family: \"Cabin\", sans-serif;\n  font-size: 2em; }\n\ninput {\n  font-size: 2em;\n  width: 40%; }\n\n.submit-budget-button {\n  font-family: \"Cabin\", sans-serif;\n  margin-top: 5vh;\n  font-size: 1.5em; }\n\n.main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .submit-budget-button, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login, .submit-budget-button {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\n#application {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center; }\n\nh2 {\n  text-align: center;\n  width: 100%; }\n\ndiv {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center; }\n\nsection {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  font-family: \"Lobster Two\", cursive; }\n\nbody {\n  color: white;\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n  width: 100%;\n  background-color: #2FA68B; }\n\n.welcome-title {\n  font-family: \"Lobster Two\", cursive;\n  font-size: 5em; }\n", ""]);
+	exports.push([module.id, ".main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .submit-budget-button, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login, .submit-budget-button {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\n.main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .submit-budget-button, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login, .submit-budget-button {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\ndiv {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: column;\n  height: 100vh;\n  align-items: flex-start; }\n\n.beermug {\n  margin-bottom: 5vh;\n  height: 30vh;\n  margin-left: 5vh; }\n\n.google-login {\n  height: 50px;\n  width: 200px;\n  font-size: 1em;\n  font-family: \"Cabin\", sans-serif; }\n\n.main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .submit-budget-button, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login, .submit-budget-button {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\n.prompt {\n  font-family: \"Cabin\", sans-serif;\n  font-size: 2em; }\n\ninput {\n  font-size: 2em;\n  width: 40%; }\n\n.submit-budget-button {\n  font-family: \"Cabin\", sans-serif;\n  margin-top: 5vh;\n  font-size: 1.5em; }\n\n.main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .submit-budget-button, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login, .submit-budget-button {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\n#application {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center; }\n\nh2 {\n  text-align: center;\n  width: 100%; }\n\ndiv {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center; }\n\nsection {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  font-family: \"Lobster Two\", cursive; }\n\n.welcome {\n  font-size: 5vh;\n  font-family: \"Cabin\", sans-serif;\n  margin-top: 0px;\n  margin-bottom: 0px; }\n\n.you-have {\n  font-size: 4vh;\n  font-family: \"Cabin\", sans-serif;\n  margin-bottom: 0px; }\n\n.big-budgy {\n  margin-top: 0px;\n  margin-bottom: 0px;\n  font-size: 24vh;\n  line-height: 1;\n  color: white;\n  -webkit-text-fill-color: transparent;\n  background: -webkit-linear-gradient(transparent, transparent), url(\"https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS9NaTVFTvvcKvy6itUcjp8VzBc0iCPuoFPvEXFHG7dZnZ9vA1S\") repeat;\n  background: -o-linear-gradient(transparent, transparent);\n  -webkit-background-clip: text; }\n\n.out-of {\n  font-family: \"Cabin\", sans-serif;\n  font-size: 2.5vh; }\n\n.view-past-purchases {\n  font-family: \"Cabin\", sans-serif;\n  font-size: 2.5vh;\n  text-decoration: underline;\n  margin-top: 25px; }\n\n.enter-label {\n  font-family: \"Cabin\", sans-serif;\n  font-size: 4.5vh;\n  margin-bottom: 2px;\n  margin-top: 27px; }\n\n.add-purchase-date {\n  margin-top: 12px; }\n\n.add-purchase-description {\n  margin-bottom: 40px; }\n\ninput {\n  font-size: 2vh;\n  font-family: \"Cabin\", sans-serif;\n  width: 300px;\n  padding: 4px;\n  border: 7px;\n  margin: 2px;\n  border-radius: 5px; }\n\n.submit-purchase-button {\n  font-size: 3vh;\n  font-family: \"Lobster Two\", cursive;\n  color: white;\n  background-color: #df9512;\n  border-radius: 30px;\n  padding: 11px; }\n\nbody {\n  color: white;\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n  width: 100%;\n  background-color: #2FA68B; }\n\n.welcome-title {\n  font-family: \"Lobster Two\", cursive;\n  font-size: 5em; }\n", ""]);
 
 	// exports
 
