@@ -7,14 +7,25 @@
   font-size: 2em;
 }
 
-input {
-  font-size: 2em;
-  width: 40%;
+.prompt {
+  margin-bottom: 5vh;
+}
+
+.set-new-budget {
+  font-size: 1.5em;
+  width: 30%;
 }
 
 .submit-budget-button {
-  font-family: $secondary-font;
   margin-top: 5vh;
-  @extend .google;
-  font-size: 1.5em;
+  font-size: 3vh;
+  font-family: "Lobster Two", cursive;
+  color: white;
+  background-color: #df9512;
+  border-radius: 30px;
+  padding: 11px;
+  &:hover{
+    background-color: #3277fc;
+    cursor: pointer;
+  }
 }
