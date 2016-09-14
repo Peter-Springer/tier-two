@@ -1,0 +1,46 @@
+@import 'variables';
+@import 'mixins';
+
+.past-purchases {
+  @include flex-center;
+  flex-direction: column;
+  font-family: $secondary-font;
+}
+
+h2 {
+  font-size: 5vh;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.list-items {
+  list-style: none;
+}
+
+.back-to-home {
+    font-size: 3vh;
+    font-family: "Lobster Two", cursive;
+    color: white;
+    background-color: #df9512;
+    border-radius: 30px;
+    padding: 11px;
+    margin-bottom: 20px;
+    &:hover{
+      background-color: #3277fc;
+      cursor: pointer;
+    }
+  }
+
+  .delete-button {
+    font-size: 3vh;
+    font-family: "Lobster Two", cursive;
+    color: white;
+    background-color: #df9512;
+    border-radius: 30px;
+    padding: 11px;
+    margin-left: 10px;
+    &:hover{
+      background-color: #3277fc;
+      cursor: pointer;
+    }
+  }

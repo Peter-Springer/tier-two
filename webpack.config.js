@@ -26,6 +26,6 @@ module.exports = {
  },
  resolve: {
    extensions: ['', '.scss', '.css', '.js', '.json', '.jsx']
- }
- // devtool: 'cheap-source-map'
+ },
+ devtool: 'cheap-source-map'
 };
