@@ -51,9 +51,22 @@ section {
    -webkit-background-clip: text;
 }
 
+.on-beer {
+  font-family: $secondary-font;
+  margin-top: 1vh;
+  font-size: 3em;
+}
+
 .out-of {
   font-family: $secondary-font;
-  font-size: 2.5vh;
+  font-size: 1.5vh;
+}
+
+.daily-weekly {
+  font-size: 2em;
+  font-family: $secondary-font;
+  margin-top: -1vh;
+
 }
 
 .footer-links {
