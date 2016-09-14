@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -9051,3 +9052,5 @@
 /***/ }
 /******/ ]);
 //# sourceMappingURL=test.bundle.js.map
+=======
+>>>>>>> master
