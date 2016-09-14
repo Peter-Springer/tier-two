@@ -5140,22 +5140,29 @@
 	      remainingBudget: null,
 	      lastPurchase: null,
 	      lastPurchaseDate: null,
-	      lastPurchaseDescription: null
+	      lastPurchaseDescription: null,
+	      dateInput: '',
+	      costInput: '',
+	      descriptionInput: '',
+	      endDateDay: null,
+	      endDateMonth: null
 	    };
 
 	    _this.getPurchaseInput = function (event) {
 	      var purchaseInput = event.target.value;
-	      _this.setState({ lastPurchase: +purchaseInput });
+	      _this.setState({ lastPurchase: +purchaseInput, costInput: purchaseInput });
 	    };
 
 	    _this.getDateInput = function (event) {
 	      var dateInput = event.target.value;
-	      _this.setState({ lastPurchaseDate: dateInput });
+	      _this.setState({ lastPurchaseDate: dateInput,
+	        dateInput: dateInput });
 	    };
 
 	    _this.getDescriptionInput = function (event) {
 	      var purchaseDescription = event.target.value;
-	      _this.setState({ lastPurchaseDescription: purchaseDescription });
+	      _this.setState({ lastPurchaseDescription: purchaseDescription,
+	        descriptionInput: purchaseDescription });
 	    };
 
 	    _this.sendPurchaseToDatabase = function () {
@@ -5164,15 +5171,24 @@
 	      var lastPurchaseDate = _this$state.lastPurchaseDate;
 	      var lastPurchaseDescription = _this$state.lastPurchaseDescription;
 
-	      _references2.default.allPurchases.push({ date: lastPurchaseDate, price: lastPurchase, description: lastPurchaseDescription });
+	      _references2.default.allPurchases.push({ date: lastPurchaseDate,
+	        price: lastPurchase,
+	        description: lastPurchaseDescription });
 	      _this.updateRemainingBudget();
 	    };
 
 	    _this.checkForRemainingBudget = function () {
 	      _references2.default.remainingBudget.on('value', function (snapshot) {
 	        var remainingBudget = snapshot.val();
-	        var budgetValue = parseInt(remainingBudget.text);
+	        var budgetValue = +remainingBudget.text;
 	        _this.setState({ remainingBudget: budgetValue });
+	      });
+	    };
+
+	    _this.checkForEndBudgetDate = function () {
+	      _references2.default.dateBudgetWasSet.on('value', function (snapshot) {
+	        var firstDate = snapshot.val();
+	        _this.setState({ endDateDay: firstDate.day, endDateMonth: firstDate.month + 1 });
 	      });
 	    };
 
@@ -5182,7 +5198,7 @@
 	      var lastPurchase = _this$state2.lastPurchase;
 
 	      var newRemaining = remainingBudget - lastPurchase;
-	      _this.state.remainingBudget = newRemaining;
+	      _this.state.remainingBudget = +newRemaining;
 	      _this.sendRemainingBudgetToDatabase();
 	    };
 
@@ -5191,6 +5207,22 @@
 
 	      _references2.default.remainingBudget.set({ text: remainingBudget });
 	    };
+
+	    _this.clearfields = function () {
+	      _this.setState({ dateInput: '',
+	        costInput: '',
+	        descriptionInput: '' });
+	    };
+
+	    _this.submitPurchase = function () {
+	      _this.sendPurchaseToDatabase();
+	      _this.clearfields();
+	    };
+
+	    _this.updateCurrentDate = function () {
+	      var newDate = _this.getCurrentDate();
+	      _this.state.currentDate = { month: newDate.month, day: newDate.day };
+	    };
 	    return _this;
 	  }
 
@@ -5198,12 +5230,14 @@
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      this.checkForRemainingBudget();
+	      this.checkForEndBudgetDate();
 	    }
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
 	      _references2.default.allPurchases.off();
 	      _references2.default.remainingBudget.off();
+	      _references2.default.dateBudgetWasSet.off();
 	    }
 	  }, {
 	    key: 'render',
@@ -5214,7 +5248,9 @@
 	        _react2.default.createElement(_BudgetInfoDisplay2.default, {
 	          userDisplayName: this.props.userDisplayName,
 	          remainingBudget: this.state.remainingBudget,
-	          userBudget: this.props.userBudget
+	          userBudget: this.props.userBudget,
+	          endDateMonth: this.state.endDateMonth,
+	          endDateDay: this.state.endDateDay
 	        }),
 	        _react2.default.createElement(
 	          'button',
@@ -5227,7 +5263,10 @@
 	          getDateInput: this.getDateInput,
 	          getPurchaseInput: this.getPurchaseInput,
 	          getDescriptionInput: this.getDescriptionInput,
-	          sendPurchaseToDatabase: this.sendPurchaseToDatabase
+	          submitPurchase: this.submitPurchase,
+	          dateInput: this.state.dateInput,
+	          costInput: this.state.costInput,
+	          descriptionInput: this.state.descriptionInput
 	        }),
 	        _react2.default.createElement(
 	          'a',
@@ -5264,6 +5303,9 @@
 	  },
 	  get remainingBudget() {
 	    return database.ref(auth.currentUser.uid + '/remainingBudget');
+	  },
+	  get dateBudgetWasSet() {
+	    return database.ref(auth.currentUser.uid + '/dateBudgetWasSet');
 	  }
 	};
 
@@ -5302,15 +5344,18 @@
 	    ),
 	    _react2.default.createElement(
 	      "p",
-	      { className: "you-have" },
-	      "Remaining"
-	    ),
-	    _react2.default.createElement(
-	      "p",
 	      { className: "out-of" },
 	      "(Out Of: $",
 	      props.userBudget,
 	      ")"
+	    ),
+	    _react2.default.createElement(
+	      "p",
+	      { className: "you-have" },
+	      "Until ",
+	      props.endDateMonth,
+	      "/",
+	      props.endDateDay
 	    )
 	  );
 	};
@@ -5328,6 +5373,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = function (props) {
+
 	  return _react2.default.createElement(
 	    'section',
 	    { className: 'log-purchase-form' },
@@ -5340,25 +5386,28 @@
 	      className: 'add-purchase-date',
 	      type: 'date',
 	      placeholder: 'Date of purchase',
-	      onChange: props.getDateInput
+	      onChange: props.getDateInput,
+	      value: props.dateInput
 	    }),
 	    _react2.default.createElement('input', {
 	      className: 'add-purchase-value',
 	      type: 'number',
 	      placeholder: 'Purchase Cost',
-	      onChange: props.getPurchaseInput
+	      onChange: props.getPurchaseInput,
+	      value: props.costInput
 	    }),
 	    _react2.default.createElement('input', {
 	      className: 'add-purchase-description',
 	      type: 'text',
 	      placeholder: 'What did you buy?',
-	      onChange: props.getDescriptionInput
+	      onChange: props.getDescriptionInput,
+	      value: props.descriptionInput
 	    }),
 	    _react2.default.createElement(
 	      'button',
 	      {
 	        className: 'submit-purchase-button',
-	        onClick: props.sendPurchaseToDatabase },
+	        onClick: props.submitPurchase },
 	      'Submit Purchase'
 	    )
 	  );
@@ -5423,7 +5472,21 @@
 	      _references2.default.monthlyBudget.set({ text: userBudget });
 	      _references2.default.remainingBudget.set({ text: userBudget });
 	      _this.setState({ userBudget: userBudget, storedBudget: true, remainingBudget: userBudget });
+	      _this.sendDateBudgetWasSetToDatabase();
 	    };
+
+	    //set budget date stuff
+
+	    _this.getCurrentDate = function () {
+	      var newDate = new Date();
+	      return { month: newDate.getMonth(), day: newDate.getDate() };
+	    };
+
+	    _this.sendDateBudgetWasSetToDatabase = function () {
+	      var dateOfFirstBudget = _this.getCurrentDate();
+	      _references2.default.dateBudgetWasSet.set({ month: dateOfFirstBudget.month, day: dateOfFirstBudget.day });
+	    };
+
 	    return _this;
 	  }
 
@@ -32505,7 +32568,7 @@
 
 
 	// module
-	exports.push([module.id, ".main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\n.main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\ndiv {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: column;\n  height: 100vh;\n  align-items: flex-start; }\n\n.beermug {\n  margin-bottom: 5vh;\n  height: 30vh;\n  margin-left: 5vh; }\n\n.google-login {\n  height: 50px;\n  width: 200px;\n  font-size: 1em;\n  font-family: \"Cabin\", sans-serif; }\n\n.main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\n.prompt {\n  font-family: \"Cabin\", sans-serif;\n  font-size: 2em; }\n\n.prompt {\n  margin-bottom: 5vh; }\n\n.set-new-budget {\n  font-size: 1.5em;\n  width: 30%; }\n\n.submit-budget-button {\n  margin-top: 5vh;\n  font-size: 3vh;\n  font-family: \"Lobster Two\", cursive;\n  color: white;\n  background-color: #df9512;\n  border-radius: 30px;\n  padding: 11px; }\n  .submit-budget-button:hover {\n    background-color: #3277fc;\n    cursor: pointer; }\n\n.main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\n#application {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center; }\n\nh2 {\n  text-align: center;\n  width: 100%; }\n\nsection {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  font-family: \"Lobster Two\", cursive; }\n\n.welcome {\n  font-size: 3vh;\n  font-family: \"Cabin\", sans-serif;\n  margin-top: 0px;\n  margin-bottom: 0px; }\n\n.you-have {\n  font-size: 4vh;\n  font-family: \"Cabin\", sans-serif;\n  margin-bottom: 0px; }\n\n.big-budgy {\n  margin-top: 0px;\n  margin-bottom: 0px;\n  font-size: 20vh;\n  line-height: 1;\n  color: white;\n  -webkit-text-fill-color: transparent;\n  background: -webkit-linear-gradient(transparent, transparent), url(\"https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS9NaTVFTvvcKvy6itUcjp8VzBc0iCPuoFPvEXFHG7dZnZ9vA1S\") repeat;\n  background: -o-linear-gradient(transparent, transparent);\n  -webkit-background-clip: text; }\n\n.out-of {\n  font-family: \"Cabin\", sans-serif;\n  font-size: 2.5vh; }\n\n.view-past-purchases {\n  font-family: \"Cabin\", sans-serif;\n  font-size: 2.5vh;\n  text-decoration: underline;\n  margin-top: 25px; }\n  .view-past-purchases:hover {\n    cursor: pointer;\n    background-color: #3277fc; }\n\n.enter-label {\n  font-family: \"Cabin\", sans-serif;\n  font-size: 4.5vh;\n  margin-bottom: 2px;\n  margin-top: 27px; }\n\n.add-purchase-date {\n  margin-top: 12px; }\n\n.add-purchase-description {\n  margin-bottom: 40px; }\n\ninput {\n  font-size: 2vh;\n  font-family: \"Cabin\", sans-serif;\n  width: 300px;\n  padding: 4px;\n  border: 7px;\n  margin: 3px;\n  border-radius: 5px; }\n  input:hover {\n    cursor: pointer; }\n\n.reset-budget-button {\n  font-size: 3vh;\n  font-family: \"Lobster Two\", cursive;\n  color: white;\n  background-color: #df9512;\n  border-radius: 30px;\n  padding: 5px; }\n  .reset-budget-button:hover {\n    background-color: #3277fc;\n    cursor: pointer; }\n\n.submit-purchase-button {\n  font-size: 3vh;\n  font-family: \"Lobster Two\", cursive;\n  color: white;\n  background-color: #df9512;\n  border-radius: 30px;\n  padding: 5px; }\n  .submit-purchase-button:hover {\n    background-color: #3277fc;\n    cursor: pointer; }\n\n.main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\n.past-purchases {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  font-family: \"Cabin\", sans-serif; }\n\nh2 {\n  font-size: 5vh;\n  margin-top: 0px;\n  margin-bottom: 0px; }\n\n.list-items {\n  list-style: none; }\n\n.back-to-home {\n  font-size: 3vh;\n  font-family: \"Lobster Two\", cursive;\n  color: white;\n  background-color: #df9512;\n  border-radius: 30px;\n  padding: 11px;\n  margin-bottom: 20px; }\n  .back-to-home:hover {\n    background-color: #3277fc;\n    cursor: pointer; }\n\n.delete-button {\n  font-size: 3vh;\n  font-family: \"Lobster Two\", cursive;\n  color: white;\n  background-color: #df9512;\n  border-radius: 30px;\n  padding: 11px;\n  margin-left: 10px; }\n  .delete-button:hover {\n    background-color: #3277fc;\n    cursor: pointer; }\n\n.list-descriptions {\n  color: black; }\n\nbody {\n  color: white;\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n  width: 100%;\n  background-color: #2FA68B; }\n\n.welcome-title {\n  font-family: \"Lobster Two\", cursive;\n  font-size: 5em; }\n", ""]);
+	exports.push([module.id, ".main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\n.main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\ndiv {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: column;\n  height: 100vh;\n  justify-content: center;\n  align-items: center; }\n\n.beermug {\n  margin-bottom: 5vh;\n  height: 30vh;\n  margin-left: 5vh; }\n\n.google-login {\n  height: 50px;\n  width: 200px;\n  font-size: 1em;\n  font-family: \"Cabin\", sans-serif; }\n\n.main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\n.prompt {\n  font-family: \"Cabin\", sans-serif;\n  font-size: 2em; }\n\n.prompt {\n  margin-bottom: 5vh; }\n\n.set-new-budget {\n  font-size: 1.5em;\n  width: 30%; }\n\n.submit-budget-button {\n  margin-top: 5vh;\n  font-size: 3vh;\n  font-family: \"Lobster Two\", cursive;\n  color: white;\n  background-color: #df9512;\n  border-radius: 30px;\n  padding: 11px; }\n  .submit-budget-button:hover {\n    background-color: #3277fc;\n    cursor: pointer; }\n\n.main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\n#application {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center; }\n\nh2 {\n  text-align: center;\n  width: 100%; }\n\nsection {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  font-family: \"Lobster Two\", cursive; }\n\n.welcome {\n  font-size: 3vh;\n  font-family: \"Cabin\", sans-serif;\n  margin-top: 0px;\n  margin-bottom: 0px; }\n\n.you-have {\n  font-size: 4vh;\n  font-family: \"Cabin\", sans-serif;\n  margin-bottom: 0px; }\n\n.big-budgy {\n  margin-top: 0px;\n  margin-bottom: 0px;\n  font-size: 20vh;\n  line-height: 1;\n  color: white;\n  -webkit-text-fill-color: transparent;\n  background: -webkit-linear-gradient(transparent, transparent), url(\"https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS9NaTVFTvvcKvy6itUcjp8VzBc0iCPuoFPvEXFHG7dZnZ9vA1S\") repeat;\n  background: -o-linear-gradient(transparent, transparent);\n  -webkit-background-clip: text; }\n\n.out-of {\n  font-family: \"Cabin\", sans-serif;\n  font-size: 2.5vh; }\n\n.view-past-purchases {\n  font-family: \"Cabin\", sans-serif;\n  font-size: 2.5vh;\n  text-decoration: underline;\n  margin-top: 25px; }\n  .view-past-purchases:hover {\n    cursor: pointer;\n    background-color: #3277fc; }\n\n.enter-label {\n  font-family: \"Cabin\", sans-serif;\n  font-size: 4.5vh;\n  margin-bottom: 2px;\n  margin-top: 27px; }\n\n.add-purchase-date {\n  margin-top: 12px; }\n\n.add-purchase-description {\n  margin-bottom: 40px; }\n\ninput {\n  font-size: 2vh;\n  font-family: \"Cabin\", sans-serif;\n  width: 300px;\n  padding: 4px;\n  border: 7px;\n  margin: 3px;\n  border-radius: 5px; }\n  input:hover {\n    cursor: pointer; }\n\n.reset-budget-button {\n  font-size: 3vh;\n  font-family: \"Lobster Two\", cursive;\n  color: white;\n  background-color: #df9512;\n  border-radius: 30px;\n  padding: 5px; }\n  .reset-budget-button:hover {\n    background-color: #3277fc;\n    cursor: pointer; }\n\n.submit-purchase-button {\n  font-size: 3vh;\n  font-family: \"Lobster Two\", cursive;\n  color: white;\n  background-color: #df9512;\n  border-radius: 30px;\n  padding: 5px; }\n  .submit-purchase-button:hover {\n    background-color: #3277fc;\n    cursor: pointer; }\n\n.main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\n.past-purchases {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  font-family: \"Cabin\", sans-serif; }\n\nh2 {\n  font-size: 5vh;\n  margin-top: 0px;\n  margin-bottom: 0px; }\n\n.list-items {\n  list-style: none; }\n\n.back-to-home {\n  font-size: 3vh;\n  font-family: \"Lobster Two\", cursive;\n  color: white;\n  background-color: #df9512;\n  border-radius: 30px;\n  padding: 11px;\n  margin-bottom: 20px; }\n  .back-to-home:hover {\n    background-color: #3277fc;\n    cursor: pointer; }\n\n.delete-button {\n  font-size: 3vh;\n  font-family: \"Lobster Two\", cursive;\n  color: white;\n  background-color: #df9512;\n  border-radius: 30px;\n  padding: 11px;\n  margin-left: 10px; }\n  .delete-button:hover {\n    background-color: #3277fc;\n    cursor: pointer; }\n\n.list-descriptions {\n  color: black; }\n\nbody {\n  color: white;\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n  width: 100%;\n  background-color: #2FA68B; }\n\n.welcome-title {\n  font-family: \"Lobster Two\", cursive;\n  font-size: 5em; }\n", ""]);
 
 	// exports
 
