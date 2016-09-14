@@ -1,5 +1,4 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
+import React from 'react';
 import Application from '../../lib/components/Application';
 const assert = require('chai').assert;
 
@@ -11,10 +10,12 @@ describe('our test bundle', function() {
 
 describe('application file', function() {
   it('be able to change "on purchase page" status', function(){
+
     let App = new Application();
-     App.state.user = true;
-     
-     assert.equal(App.state.user, true);
+    // App.mount();
+    App.setState({ onPurchasePage: true });
+
+    assert.equal(App.state.onPurchasePage, true);
 
   });
 });
