@@ -6,11 +6,12 @@ div {
   @include flex;
   flex-direction: column;
   height: 100vh;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center
+
 }
 
 .beermug {
-  // margin-top: 5vh;
   margin-bottom: 5vh;
   height: 30vh;
   margin-left: 5vh;
