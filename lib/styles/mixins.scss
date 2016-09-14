@@ -50,3 +50,16 @@
   @extend .social-media-button;
   background-color: $twitter-button-color;
 }
+
+@mixin buttons {
+  font-size: 3vh;
+  font-family: "Lobster Two", cursive;
+  color: white;
+  background-color: #df9512;
+  border-radius: 30px;
+  padding: 5px;
+  &:hover{
+    background-color: #3277fc;
+    cursor: pointer;
+  }
+}

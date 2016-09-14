@@ -15,9 +15,9 @@ h2 {
   width: 100%;
 }
 
-div {
-  @include flex-center;
-}
+// div {
+//   @include flex-center;
+// }
 
 section {
   @include flex-center;
@@ -26,7 +26,7 @@ section {
 }
 
 .welcome {
-  font-size: 5vh;
+  font-size: 3vh;
   font-family: $secondary-font;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -41,7 +41,7 @@ section {
 .big-budgy {
   margin-top: 0px;
   margin-bottom: 0px;
-  font-size: 24vh;
+  font-size: 20vh;
   line-height: 1;
   color: white;
    -webkit-text-fill-color: transparent;
@@ -61,6 +61,10 @@ section {
   font-size: 2.5vh;
   text-decoration: underline;
   margin-top: 25px;
+  &:hover{
+    cursor: pointer;
+    background-color: #3277fc;
+  }
 }
 
 .enter-label {
@@ -84,15 +88,17 @@ input {
   width: 300px;
   padding: 4px;
   border: 7px;
-  margin: 2px;
+  margin: 3px;
   border-radius: 5px;
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+.reset-budget-button {
+  @include buttons;
 }
 
 .submit-purchase-button {
-    font-size: 3vh;
-    font-family: "Lobster Two", cursive;
-    color: white;
-    background-color: #df9512;
-    border-radius: 30px;
-    padding: 11px;
+ @include buttons;
 }
