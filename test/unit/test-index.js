@@ -1,5 +1,4 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
+import React from 'react';
 import Application from '../../lib/components/Application';
 import BudgetDisplay from '../../lib/components/BudgetInfoDisplay';
 import LogPurchaseForm from '../../lib/components/LogPurchaseForm';
@@ -16,50 +15,61 @@ describe('our test bundle', function() {
   });
 });
 
+describe('application file', function() {
+  it('be able to change "on purchase page" status', function(){
+
+    let App = new Application();
+    // App.mount();
+    App.setState({ onPurchasePage: true });
+
+    assert.equal(App.state.onPurchasePage, true);
+  });
+});
+
 describe('application', function() {
  it('should create an application', function() {
-   assert.isObject({ Application })
- })
+   assert.isObject({ Application });
+ });
 });
 
 describe('Budget info display', function() {
  it('should create a budget info display', function() {
-   assert.isObject({ BudgetDisplay })
- })
+   assert.isObject({ BudgetDisplay });
+ });
 });
 
 describe('log purchase', function() {
  it('should create a log of purchases', function() {
-   assert.isObject({ LogPurchaseForm })
- })
+   assert.isObject({ LogPurchaseForm });
+ });
 });
 
 describe('home screen', function() {
  it('should create a home screen', function() {
-   assert.isObject({ HomeScreen })
- })
+   assert.isObject({ HomeScreen });
+ });
 });
 
 describe('purchase', function() {
  it('should create a purchase', function() {
-   assert.isObject({ Purchase })
- })
+   assert.isObject({ Purchase });
+ });
 });
 
 describe('Purchase List', function() {
  it('should create a purchase list', function() {
-   assert.isObject({ PurchasesList })
- })
+   assert.isObject({ PurchasesList });
+ });
 });
 
 describe('Set Budget', function() {
  it('should create a budget', function() {
-   assert.isObject({ SetBudget })
- })
+   assert.isObject({ SetBudget });
+ });
 });
 
 describe('Sign in screen', function() {
  it('should create a sign in screen', function() {
-   assert.isObject({ SignInScreen })
- })
+   assert.isObject({ SignInScreen });
+ });
 });
