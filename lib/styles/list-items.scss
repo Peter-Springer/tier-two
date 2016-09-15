@@ -2,7 +2,7 @@
 @import 'mixins';
 
 .purchases {
-  font-size: 30px;
+  font-size: .2em;
 }
 
 .purchase-wrapper {
@@ -14,13 +14,32 @@
 }
 
 .purchases-header {
-  font-size: 5em;
+  font-size: 3em;
 }
 
 .list-items-wrapper {
   overflow: scroll;
-  height: 600px;
+  height: 20vh;
   margin-top: 50px;
   border: 2px solid black;
   background-color: #1a5245;
+}
+
+@media screen and (min-width: 450px) {
+  .purchases {
+    font-size: 1.5em;
+  }
+
+  .delete-button {
+    font-size: 1em;
+    font-family: "Lobster Two", cursive;
+    color: white;
+    background-color: red;
+    padding: 3px;
+    margin-left: 10px;
+    &:hover {
+      background-color: #1a5245;
+      cursor: pointer;
+    }
+  }
 }
