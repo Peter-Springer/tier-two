@@ -7,40 +7,34 @@
   font-family: $secondary-font;
 }
 
-h2 {
-  font-size: 5vh;
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
-
 .list-items {
   list-style: none;
+  word-break: break-all;
 }
 
 .back-to-home {
-    font-size: 3vh;
     font-family: "Lobster Two", cursive;
     color: white;
     background-color: #df9512;
     border-radius: 30px;
-    padding: 11px;
-    margin-bottom: 20px;
+    height: 100px;
+    width: 300px;
+    font-size: 2em;
     &:hover{
-      background-color: #3277fc;
+      background-color: #1a5245;
       cursor: pointer;
     }
   }
 
   .delete-button {
-    font-size: 3vh;
+    font-size: 2vh;
     font-family: "Lobster Two", cursive;
     color: white;
-    background-color: #df9512;
-    border-radius: 30px;
+    background-color: red;
     padding: 11px;
     margin-left: 10px;
     &:hover{
-      background-color: #3277fc;
+      background-color: #1a5245;
       cursor: pointer;
     }
   }

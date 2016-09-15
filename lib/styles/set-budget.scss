@@ -2,30 +2,43 @@
 @import 'mixins';
 
 
-.prompt {
-  font-family: $secondary-font;
-  font-size: 2em;
+.welcome-title-budget {
+  font-size: 4em;
 }
 
 .prompt {
-  margin-bottom: 5vh;
+  font-family: $secondary-font;
+  font-size: 1.5em;
 }
 
 .set-new-budget {
-  font-size: 1.5em;
-  width: 30%;
+  font-size: 2em;
+  width: 55vw;
+  height: 10vh;
 }
 
 .submit-budget-button {
   margin-top: 5vh;
-  font-size: 3vh;
+  font-size: 2em;
   font-family: "Lobster Two", cursive;
   color: white;
   background-color: #df9512;
   border-radius: 30px;
   padding: 11px;
   &:hover{
-    background-color: #3277fc;
+    background-color: #1a5245;
     cursor: pointer;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .prompt {
+    font-size: 2em;
+    width: 60%;
+  }
+  .set-new-budget {
+    font-size: 2em;
+    width: 24%;
+    height: 10%;
   }
 }
