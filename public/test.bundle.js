@@ -5375,13 +5375,6 @@
 	      ' per day and $',
 	      weekly,
 	      ' per week.'
-	    ),
-	    _react2.default.createElement(
-	      'p',
-	      { className: 'weeklyBudget' },
-	      ' Total original budget: ',
-	      originalBudget,
-	      ' '
 	    )
 	  );
 	};
@@ -6090,7 +6083,7 @@
 	    { className: 'log-purchase-form' },
 	    _react2.default.createElement(
 	      'p',
-	      { className: 'enter-label' },
+	      { className: 'new-purchase.l' },
 	      'New Purchase'
 	    ),
 	    _react2.default.createElement('input', {
@@ -6205,11 +6198,11 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'section',
-	        null,
+	        { className: 'set-budget-wrapper' },
 	        _react2.default.createElement(
 	          'h1',
 	          {
-	            className: 'welcome-title' },
+	            className: 'welcome-title-budget' },
 	          'Beer Funds'
 	        ),
 	        _react2.default.createElement(
@@ -6218,16 +6211,11 @@
 	            className: 'prompt' },
 	          'How much would you like to spend on beer this month?'
 	        ),
-	        _react2.default.createElement(
-	          'button',
-	          null,
-	          ' test'
-	        ),
 	        _react2.default.createElement('input', {
 	          onChange: this.getBudgetInput,
 	          className: 'set-new-budget',
 	          type: 'number',
-	          placeholder: 'Add monthly budget'
+	          placeholder: 'Add budget'
 	        }),
 	        _react2.default.createElement(
 	          'button',
@@ -10576,23 +10564,31 @@
 	        'section',
 	        null,
 	        _react2.default.createElement(
-	          'button',
-	          {
-	            onClick: this.props.goBackToBudget,
-	            className: 'back-to-home' },
-	          'Back to Budget'
-	        ),
-	        _react2.default.createElement(
-	          'h2',
-	          null,
-	          'Past Purchases'
-	        ),
-	        _react2.default.createElement(
-	          'ul',
-	          { className: 'past-purchases' },
-	          this.state.purchases.map(function (p) {
-	            return _react2.default.createElement(_Purchase2.default, { purchase: p, key: p.key });
-	          })
+	          'article',
+	          { className: 'purchase-wrapper' },
+	          _react2.default.createElement(
+	            'h2',
+	            { className: 'purchases-header' },
+	            'Past Purchases'
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            {
+	              onClick: this.props.goBackToBudget,
+	              className: 'back-to-home' },
+	            'Back to Budget'
+	          ),
+	          _react2.default.createElement(
+	            'article',
+	            { className: 'list-items-wrapper' },
+	            _react2.default.createElement(
+	              'ul',
+	              { className: 'past-purchases' },
+	              this.state.purchases.map(function (p) {
+	                return _react2.default.createElement(_Purchase2.default, { purchase: p, key: p.key });
+	              })
+	            )
+	          )
 	        )
 	      );
 	    }
@@ -10636,24 +10632,24 @@
 	    { className: 'list-items' },
 	    _react2.default.createElement(
 	      'h3',
-	      null,
+	      { className: 'purchases' },
 	      _react2.default.createElement(
 	        'span',
 	        { className: 'list-descriptions' },
-	        'Date:'
+	        'Date: '
 	      ),
 	      purchase.date,
 	      _react2.default.createElement(
 	        'span',
 	        { className: 'list-descriptions' },
-	        'Description:'
+	        ' Description: '
 	      ),
 	      purchase.description,
 	      ' ',
 	      _react2.default.createElement(
 	        'span',
 	        { className: 'list-descriptions' },
-	        'Cost:'
+	        ' Cost: '
 	      ),
 	      price,
 	      _react2.default.createElement(
