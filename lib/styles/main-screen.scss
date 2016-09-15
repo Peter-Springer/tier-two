@@ -141,13 +141,22 @@ input {
   }
 }
 
-@media screen and (max-width: 330px) {
+@media screen and (max-width: 320px) {
   section {
     @include flex-center;
     width: 100%;
   }
+
+  input {
+    font-size: 1em;
+  }
   .you-have {
     display: none;
+  }
+
+  .new-purchase {
+    font-family: $title-font;
+    margin-top: -4vh;
   }
 
   .budget-info-display  {
@@ -157,7 +166,7 @@ input {
   }
   .on-beer {
     width: 90vw;
-    margin-top: -18vh;
+    margin-top: -15vh;
   }
   .big-budgy {
     margin-top: 2vh;
@@ -177,9 +186,6 @@ input {
   }
 
   .footer-links a {
-    font-size: 2em;
-  }
-  .you-have {
-    display: none;
+    font-size: 1em;
   }
 }
