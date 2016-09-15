@@ -15,7 +15,6 @@ describe('our test bundle', function() {
   });
 });
 
-<<<<<<< HEAD
 describe('application file', function() {
   it('be able to change "on purchase page" status', function(){
 
@@ -24,52 +23,53 @@ describe('application file', function() {
     App.setState({ onPurchasePage: true });
 
     assert.equal(App.state.onPurchasePage, true);
-=======
+  });
+});
+
 describe('application', function() {
  it('should create an application', function() {
-   assert.isObject({ Application })
- })
+   assert.isObject({ Application });
+ });
 });
->>>>>>> 1e0e33ba8cc3e1099b4a663a712c13f900e4d19d
 
 describe('Budget info display', function() {
  it('should create a budget info display', function() {
    assert.isObject({ BudgetDisplay })
- })
+ });
 });
 
 describe('log purchase', function() {
  it('should create a log of purchases', function() {
    assert.isObject({ LogPurchaseForm })
- })
+ });
 });
 
 describe('home screen', function() {
  it('should create a home screen', function() {
    assert.isObject({ HomeScreen })
- })
+ });
 });
 
 describe('purchase', function() {
  it('should create a purchase', function() {
    assert.isObject({ Purchase })
- })
+ });
 });
 
 describe('Purchase List', function() {
  it('should create a purchase list', function() {
    assert.isObject({ PurchasesList })
- })
+ });
 });
 
 describe('Set Budget', function() {
  it('should create a budget', function() {
    assert.isObject({ SetBudget })
- })
+ });
 });
 
 describe('Sign in screen', function() {
  it('should create a sign in screen', function() {
    assert.isObject({ SignInScreen })
- })
+ });
 });
