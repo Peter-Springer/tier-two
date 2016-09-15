@@ -26,19 +26,19 @@
     }
   }
 
-  .delete-button {
-    font-size: 2vh;
-    font-family: "Lobster Two", cursive;
-    color: white;
-    background-color: red;
-    padding: 11px;
-    margin-left: 10px;
-    &:hover{
-      background-color: #1a5245;
-      cursor: pointer;
-    }
+.delete-button {
+  font-size: 2vh;
+  font-family: "Lobster Two", cursive;
+  color: white;
+  background-color: red;
+  padding: 11px;
+  margin-left: 10px;
+  &:hover {
+    background-color: #1a5245;
+    cursor: pointer;
   }
+}
 
-  .list-descriptions {
-    color: #df9512;
-  }
+.list-descriptions {
+  color: #df9512;
+}
