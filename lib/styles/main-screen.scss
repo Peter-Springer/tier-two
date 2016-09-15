@@ -15,110 +15,93 @@ h2 {
   width: 100%;
 }
 
-// div {
-//   @include flex-center;
-// }
-
 section {
   @include flex-center;
   flex-direction: column;
   font-family: $title-font;
+  margin-top: -3vh;
 }
 
 .welcome {
-  font-size: 3vh;
-  font-family: $secondary-font;
-  margin-top: 0px;
-  margin-bottom: 0px;
+  font-size: 2em;
+  font-family: $title-font;
+  margin-top: 15vh;
 }
 
 .you-have {
-  font-size: 4vh;
+  font-size: 1.5em;
   font-family: $secondary-font;
-  margin: 0px;
+  margin-top: -2vh;
 }
 
 .big-budgy {
-  margin-top: 0px;
-  margin-bottom: 0px;
+  margin-top: -2vh;
   font-size: 20vh;
   line-height: 1;
   color: white;
-   -webkit-text-fill-color: transparent;
-   background: -webkit-linear-gradient(transparent, transparent),
-             url("https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS9NaTVFTvvcKvy6itUcjp8VzBc0iCPuoFPvEXFHG7dZnZ9vA1S" ) repeat;
-   background: -o-linear-gradient(transparent, transparent);
-   -webkit-background-clip: text;
+  //  -webkit-text-fill-color: transparent;
+  //  background: -webkit-linear-gradient(transparent, transparent),
+  //            url("https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS9NaTVFTvvcKvy6itUcjp8VzBc0iCPuoFPvEXFHG7dZnZ9vA1S" ) repeat;
+  //  background: -o-linear-gradient(transparent, transparent);
+  //  -webkit-background-clip: text;
 }
 
 .on-beer {
   font-family: $secondary-font;
-  margin-top: 1vh;
+  margin-top: -20vh;
   font-size: 3em;
 }
 
-.out-of {
-  font-family: $secondary-font;
-  font-size: 1.5vh;
-}
-
 .daily-weekly {
-  font-size: 2em;
+  font-size: 1.5em;
   font-family: $secondary-font;
-  margin-top: -1vh;
-
+  margin-top: -5vh;
 }
 
 .footer-links {
-    display: flex;
-      flex-direction: row;
+  @include flex;
+  margin-top: 2vh;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 50vh;
 }
 
 .view-past-purchases {
   font-family: $secondary-font;
-  font-size: 2.5vh;
+  font-size: 1em;
   text-decoration: underline;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-top: 25px;
   &:hover{
     cursor: pointer;
     background-color: #1a5245;
   }
 }
-// background-color: #3277fc;
 
 .reset-budget {
   font-family: $secondary-font;
-  font-size: 2.5vh;
+  font-size: 1em;
   text-decoration: underline;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-top: 25px;
   &:hover{
     cursor: pointer;
     background-color: #1a5245;
   }
 }
 
-.enter-label {
-  font-family: "Cabin", sans-serif;
-  font-size: 4.5vh;
-  margin-bottom: 2px;
-  margin-top: 27px;
+.new-purchase {
+  font-family: $secondary-font;
+  font-size: 1.5em;
 }
 
 .add-purchase-date {
-  margin-top: 12px;
+  margin-top: -2vh;
 }
 
-.add-purchase-description {
-  margin-bottom: 40px;
+.submit-purchase-button {
+  margin-top: 1vh;
 }
 
 input {
-  font-size: 2vh;
-  font-family: "Cabin", sans-serif;
+  font-size: 1.5em;
+  font-family: $secondary-font;
   width: 300px;
   padding: 4px;
   border: 7px;
@@ -129,12 +112,60 @@ input {
   }
 }
 
-@media screen and (max-width: 570px) {
-  .big-budgy {
-    font-size: 20vw;
+@media screen and (max-width: 690px) {
+  .welcome { display: none; }
+  .budget-info-display {
+    margin-top: 5vh;
+    width: 90vw;
+  }
+  p {
+    text-align: center;
   }
 }
 
-.submit-purchase-button {
- @include buttons;
+@media screen and (max-width: 330px) {
+  section {
+    @include flex-center;
+    width: 100%;
+  }
+  .you-have { display: none }
+
+  .budget-info-display  {
+    width: 100px;
+    margin-top: 5vh;
+    text-align: center;
+  }
+  .on-beer {
+    width: 90vw;
+    margin-top: -18vh;
+  }
+  .big-budgy {
+    margin-top: 2vh;
+    width: 200px;
+    margin-right: 20vh;
+    font-size: 6em;
+  }
+  .daily-weekly {
+    display: none;
+  }
+  .log-purchase-form {
+    margin-top: -10vh;
+    width: 80vw;
+    height: 35vh;
+  }
+  .submit-purchase-button {
+    @include buttons;
+    @include flex-center;
+    height: 25%;
+    background: white;
+    width: 120%;
+    background-color: #df9512;
+  }
+  .footer-links a {
+    font-size: 1.5em;
+  }
+  .you-have {
+    display: none;
+  }
+
 }

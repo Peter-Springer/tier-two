@@ -53,7 +53,7 @@
 
 @mixin buttons {
   font-size: 3vh;
-  font-family: "Lobster Two", cursive;
+  font-family: $title-font;
   color: white;
   background-color: #df9512;
   border-radius: 30px;
