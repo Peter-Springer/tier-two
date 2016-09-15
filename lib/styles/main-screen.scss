@@ -38,11 +38,12 @@ section {
   font-size: 20vh;
   line-height: 1;
   color: white;
-  //  -webkit-text-fill-color: transparent;
-  //  background: -webkit-linear-gradient(transparent, transparent),
-  //            url("https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS9NaTVFTvvcKvy6itUcjp8VzBc0iCPuoFPvEXFHG7dZnZ9vA1S" ) repeat;
-  //  background: -o-linear-gradient(transparent, transparent);
-  //  -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+   background: -webkit-linear-gradient(transparent, transparent),
+             url("https://kristindiannefoss.github.io/style/bubbles.png" ) repeat;
+   background: -o-linear-gradient(transparent, transparent);
+   -webkit-background-clip: text;
+   background-size: cover;
 }
 
 .on-beer {
@@ -176,8 +177,8 @@ input {
 
   .big-budgy {
     margin-top: 2vh;
-    width: 150px;
-    margin-right: 20vh;
+    // width: 150px;
+    // margin-right: 20vh;
     font-size: 5em;
   }
 
