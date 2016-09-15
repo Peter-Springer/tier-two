@@ -25,3 +25,15 @@ div {
   font-size: 1em;
   font-family: $secondary-font;
 }
+
+@media screen and (min-width: 300px) {
+  .google-login {
+    height: 80px;
+    width: 300px;
+    font-size: 30px;
+  }
+
+  .welcome-title-sign-in {
+    font-size: 10vh;
+  }
+}
