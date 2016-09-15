@@ -1,6 +1,10 @@
 @import 'variables';
 @import 'mixins';
 
+.set-budget-wrapper {
+  @include flex;
+  height: 80%;
+}
 
 .welcome-title-budget {
   font-size: 4em;
@@ -12,9 +16,7 @@
 }
 
 .set-new-budget {
-  font-size: 2em;
-  width: 55vw;
-  height: 10vh;
+  font-size: 30px;
 }
 
 .submit-budget-button {
