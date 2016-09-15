@@ -39,11 +39,11 @@ section {
   font-size: 20vh;
   line-height: 1;
   color: white;
-   -webkit-text-fill-color: transparent;
-   background: -webkit-linear-gradient(transparent, transparent),
-             url("https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS9NaTVFTvvcKvy6itUcjp8VzBc0iCPuoFPvEXFHG7dZnZ9vA1S" ) repeat;
-   background: -o-linear-gradient(transparent, transparent);
-   -webkit-background-clip: text;
+  //  -webkit-text-fill-color: transparent;
+  //  background: -webkit-linear-gradient(transparent, transparent),
+  //            url("https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS9NaTVFTvvcKvy6itUcjp8VzBc0iCPuoFPvEXFHG7dZnZ9vA1S" ) repeat;
+  //  background: -o-linear-gradient(transparent, transparent);
+  //  -webkit-background-clip: text;
 }
 
 .on-beer {
@@ -107,6 +107,7 @@ section {
 input {
   font-size: 1.5em;
   font-family: $secondary-font;
+  height: 50px;
   width: 300px;
   padding: 4px;
   border: 7px;
@@ -115,6 +116,18 @@ input {
   &:hover{
     cursor: pointer;
   }
+}
+
+.log-purchase-form {
+  @include flex;
+  width: 80vw;
+  height: 35vh;
+}
+
+.submit-purchase-button {
+  width: 30vw;
+  text-align: center;
+  text-align: -webkit-center;
 }
 
 @media screen and (max-width: 690px) {
@@ -133,7 +146,9 @@ input {
     @include flex-center;
     width: 100%;
   }
-  .you-have { display: none }
+  .you-have {
+    display: none;
+  }
 
   .budget-info-display  {
     width: 100px;
@@ -146,23 +161,23 @@ input {
   }
   .big-budgy {
     margin-top: 2vh;
-    width: 200px;
+    width: 150px;
     margin-right: 20vh;
-    font-size: 6em;
+    font-size: 5em;
   }
   .daily-weekly {
     display: none;
   }
-  .log-purchase-form {
-    margin-top: -10vh;
-    width: 80vw;
-    height: 35vh;
-  }
   .submit-purchase-button {
-    width: 120%;
+    width: 100px;
+    height: 50px;
+    text-align: center;
+    text-align: -webkit-center;
+    padding-left: 10px;
   }
+
   .footer-links a {
-    font-size: 1.5em;
+    font-size: 2em;
   }
   .you-have {
     display: none;

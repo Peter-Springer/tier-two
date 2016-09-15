@@ -5376,13 +5376,6 @@
 	      ' per day and $',
 	      weekly,
 	      ' per week.'
-	    ),
-	    _react2.default.createElement(
-	      'p',
-	      { className: 'weeklyBudget' },
-	      ' Total original budget: ',
-	      originalBudget,
-	      ' '
 	    )
 	  );
 	};
@@ -6091,7 +6084,7 @@
 	    { className: 'log-purchase-form' },
 	    _react2.default.createElement(
 	      'p',
-	      { className: 'enter-label' },
+	      { className: 'new-purchase.l' },
 	      'New Purchase'
 	    ),
 	    _react2.default.createElement('input', {
@@ -6206,11 +6199,11 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'section',
-	        null,
+	        { className: 'set-budget-wrapper' },
 	        _react2.default.createElement(
 	          'h1',
 	          {
-	            className: 'welcome-title' },
+	            className: 'welcome-title-budget' },
 	          'Beer Funds'
 	        ),
 	        _react2.default.createElement(
@@ -6219,16 +6212,11 @@
 	            className: 'prompt' },
 	          'How much would you like to spend on beer this month?'
 	        ),
-	        _react2.default.createElement(
-	          'button',
-	          null,
-	          ' test'
-	        ),
 	        _react2.default.createElement('input', {
 	          onChange: this.getBudgetInput,
 	          className: 'set-new-budget',
 	          type: 'number',
-	          placeholder: 'Add monthly budget'
+	          placeholder: 'Add budget'
 	        }),
 	        _react2.default.createElement(
 	          'button',
@@ -10577,23 +10565,31 @@
 	        'section',
 	        null,
 	        _react2.default.createElement(
-	          'button',
-	          {
-	            onClick: this.props.goBackToBudget,
-	            className: 'back-to-home' },
-	          'Back to Budget'
-	        ),
-	        _react2.default.createElement(
-	          'h2',
-	          null,
-	          'Past Purchases'
-	        ),
-	        _react2.default.createElement(
-	          'ul',
-	          { className: 'past-purchases' },
-	          this.state.purchases.map(function (p) {
-	            return _react2.default.createElement(_Purchase2.default, { purchase: p, key: p.key });
-	          })
+	          'article',
+	          { className: 'purchase-wrapper' },
+	          _react2.default.createElement(
+	            'h2',
+	            { className: 'purchases-header' },
+	            'Past Purchases'
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            {
+	              onClick: this.props.goBackToBudget,
+	              className: 'back-to-home' },
+	            'Back to Budget'
+	          ),
+	          _react2.default.createElement(
+	            'article',
+	            { className: 'list-items-wrapper' },
+	            _react2.default.createElement(
+	              'ul',
+	              { className: 'past-purchases' },
+	              this.state.purchases.map(function (p) {
+	                return _react2.default.createElement(_Purchase2.default, { purchase: p, key: p.key });
+	              })
+	            )
+	          )
 	        )
 	      );
 	    }
@@ -10637,24 +10633,24 @@
 	    { className: 'list-items' },
 	    _react2.default.createElement(
 	      'h3',
-	      null,
+	      { className: 'purchases' },
 	      _react2.default.createElement(
 	        'span',
 	        { className: 'list-descriptions' },
-	        'Date:'
+	        'Date: '
 	      ),
 	      purchase.date,
 	      _react2.default.createElement(
 	        'span',
 	        { className: 'list-descriptions' },
-	        'Description:'
+	        ' Description: '
 	      ),
 	      purchase.description,
 	      ' ',
 	      _react2.default.createElement(
 	        'span',
 	        { className: 'list-descriptions' },
-	        'Cost:'
+	        ' Cost: '
 	      ),
 	      price,
 	      _react2.default.createElement(
@@ -37526,7 +37522,7 @@
 
 
 	// module
-	exports.push([module.id, ".main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\n.main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\ndiv {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: column;\n  height: 100vh;\n  justify-content: center;\n  align-items: center; }\n\n.beermug {\n  margin-bottom: 5vh;\n  height: 30vh;\n  margin-left: 5vh; }\n\n.google-login {\n  height: 50px;\n  width: 200px;\n  font-size: 1em;\n  font-family: \"Cabin\", sans-serif; }\n\n@media screen and (min-width: 300px) {\n  .google-login {\n    height: 80px;\n    width: 300px;\n    font-size: 30px; }\n  .welcome-title-sign-in {\n    font-size: 10vh; } }\n\n.main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\n.prompt {\n  font-family: \"Cabin\", sans-serif;\n  font-size: 2em; }\n\n.prompt {\n  margin-bottom: 5vh; }\n\n.set-new-budget {\n  font-size: 1.5em;\n  width: 30%; }\n\n.submit-budget-button {\n  margin-top: 5vh;\n  font-size: 3vh;\n  font-family: \"Lobster Two\", cursive;\n  color: white;\n  background-color: #df9512;\n  border-radius: 30px;\n  padding: 11px; }\n  .submit-budget-button:hover {\n    background-color: #3277fc;\n    cursor: pointer; }\n\n.main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\n#application {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center; }\n\nh2 {\n  text-align: center;\n  width: 100%; }\n\nsection {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  font-family: \"Lobster Two\", cursive; }\n\n.welcome {\n  font-size: 3vh;\n  font-family: \"Cabin\", sans-serif;\n  margin-top: 0px;\n  margin-bottom: 0px; }\n\n.you-have {\n  font-size: 4vh;\n  font-family: \"Cabin\", sans-serif;\n  margin: 0px; }\n\n.big-budgy {\n  margin-top: 0px;\n  margin-bottom: 0px;\n  font-size: 20vh;\n  line-height: 1;\n  color: white;\n  -webkit-text-fill-color: transparent;\n  background: -webkit-linear-gradient(transparent, transparent), url(\"https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS9NaTVFTvvcKvy6itUcjp8VzBc0iCPuoFPvEXFHG7dZnZ9vA1S\") repeat;\n  background: -o-linear-gradient(transparent, transparent);\n  -webkit-background-clip: text; }\n\n.on-beer {\n  font-family: \"Cabin\", sans-serif;\n  margin-top: 1vh;\n  font-size: 3em; }\n\n.out-of {\n  font-family: \"Cabin\", sans-serif;\n  font-size: 1.5vh; }\n\n.daily-weekly {\n  font-size: 2em;\n  font-family: \"Cabin\", sans-serif;\n  margin-top: -1vh; }\n\n.footer-links {\n  display: flex;\n  flex-direction: row; }\n\n.view-past-purchases {\n  font-family: \"Cabin\", sans-serif;\n  font-size: 2.5vh;\n  text-decoration: underline;\n  padding-left: 20px;\n  padding-right: 20px;\n  margin-top: 25px; }\n  .view-past-purchases:hover {\n    cursor: pointer;\n    background-color: #1a5245; }\n\n.reset-budget {\n  font-family: \"Cabin\", sans-serif;\n  font-size: 2.5vh;\n  text-decoration: underline;\n  padding-left: 20px;\n  padding-right: 20px;\n  margin-top: 25px; }\n  .reset-budget:hover {\n    cursor: pointer;\n    background-color: #1a5245; }\n\n.enter-label {\n  font-family: \"Cabin\", sans-serif;\n  font-size: 4.5vh;\n  margin-bottom: 2px;\n  margin-top: 27px; }\n\n.add-purchase-date {\n  margin-top: 12px; }\n\n.add-purchase-description {\n  margin-bottom: 40px; }\n\ninput {\n  font-size: 2vh;\n  font-family: \"Cabin\", sans-serif;\n  width: 300px;\n  padding: 4px;\n  border: 7px;\n  margin: 3px;\n  border-radius: 5px; }\n  input:hover {\n    cursor: pointer; }\n\n@media screen and (max-width: 570px) {\n  .big-budgy {\n    font-size: 20vw; } }\n\n.submit-purchase-button {\n  font-size: 3vh;\n  font-family: \"Lobster Two\", cursive;\n  color: white;\n  background-color: #df9512;\n  border-radius: 30px;\n  padding: 5px; }\n  .submit-purchase-button:hover {\n    background-color: #1a5245;\n    cursor: pointer; }\n\n.main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\n.past-purchases {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  font-family: \"Cabin\", sans-serif; }\n\nh2 {\n  font-size: 5vh;\n  margin-top: 0px;\n  margin-bottom: 0px; }\n\n.list-items {\n  list-style: none; }\n\n.back-to-home {\n  font-size: 3vh;\n  font-family: \"Lobster Two\", cursive;\n  color: white;\n  background-color: #df9512;\n  border-radius: 30px;\n  padding: 11px;\n  margin-bottom: 20px; }\n  .back-to-home:hover {\n    background-color: #3277fc;\n    cursor: pointer; }\n\n.delete-button {\n  font-size: 3vh;\n  font-family: \"Lobster Two\", cursive;\n  color: white;\n  background-color: #df9512;\n  border-radius: 30px;\n  padding: 11px;\n  margin-left: 10px; }\n  .delete-button:hover {\n    background-color: #3277fc;\n    cursor: pointer; }\n\n.list-descriptions {\n  color: black; }\n\nbody {\n  color: white;\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n  width: 100%;\n  background-color: #2FA68B; }\n\n.welcome-title {\n  font-family: \"Lobster Two\", cursive;\n  font-size: 5em; }\n\ninput {\n  text-align: center; }\n", ""]);
+	exports.push([module.id, ".main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\n.main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\ndiv {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: column;\n  height: 100vh;\n  justify-content: center;\n  align-items: center; }\n\n.beermug {\n  margin-bottom: 5vh;\n  height: 30vh;\n  margin-left: 5vh; }\n\n.google-login {\n  height: 50px;\n  width: 200px;\n  font-size: 1em;\n  font-family: \"Cabin\", sans-serif; }\n\n@media screen and (min-width: 300px) {\n  .google-login {\n    height: 80px;\n    width: 300px;\n    font-size: 30px; }\n  .welcome-title-sign-in {\n    font-size: 10vh; } }\n\n.main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\n.welcome-title-budget {\n  font-size: 4em; }\n\n.prompt {\n  font-family: \"Cabin\", sans-serif;\n  font-size: 1.5em; }\n\n.set-new-budget {\n  font-size: 2em;\n  width: 55vw;\n  height: 10vh; }\n\n.submit-budget-button {\n  margin-top: 5vh;\n  font-size: 2em;\n  font-family: \"Lobster Two\", cursive;\n  color: white;\n  background-color: #df9512;\n  border-radius: 30px;\n  padding: 11px; }\n  .submit-budget-button:hover {\n    background-color: #1a5245;\n    cursor: pointer; }\n\n@media screen and (min-width: 500px) {\n  .prompt {\n    font-size: 2em;\n    width: 60%; }\n  .set-new-budget {\n    font-size: 2em;\n    width: 24%;\n    height: 10%; } }\n\n.main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\n#application {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center; }\n\nh2 {\n  text-align: center;\n  width: 100%; }\n\nsection {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  font-family: \"Lobster Two\", cursive;\n  margin-top: -3vh; }\n\n.welcome {\n  font-size: 2em;\n  font-family: \"Lobster Two\", cursive;\n  margin-top: 15vh; }\n\n.you-have {\n  font-size: 1.5em;\n  font-family: \"Cabin\", sans-serif;\n  margin-top: -2vh; }\n\n.big-budgy {\n  margin-top: -2vh;\n  font-size: 20vh;\n  line-height: 1;\n  color: white; }\n\n.on-beer {\n  font-family: \"Cabin\", sans-serif;\n  margin-top: -20vh;\n  font-size: 3em; }\n\n.daily-weekly {\n  font-size: 1.5em;\n  font-family: \"Cabin\", sans-serif;\n  margin-top: -5vh; }\n\n.footer-links {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  margin-top: 2vh;\n  flex-direction: row;\n  justify-content: space-between;\n  width: 50vh; }\n\n.view-past-purchases {\n  font-family: \"Cabin\", sans-serif;\n  font-size: 1em;\n  text-decoration: underline; }\n  .view-past-purchases:hover {\n    cursor: pointer;\n    background-color: #1a5245; }\n\n.reset-budget {\n  font-family: \"Cabin\", sans-serif;\n  font-size: 1em;\n  text-decoration: underline; }\n  .reset-budget:hover {\n    cursor: pointer;\n    background-color: #1a5245; }\n\n.new-purchase {\n  font-family: \"Cabin\", sans-serif;\n  font-size: 1.5em; }\n\n.add-purchase-date {\n  margin-top: -2vh; }\n\n.submit-purchase-button {\n  font-size: 3vh;\n  font-family: \"Lobster Two\", cursive;\n  color: white;\n  background-color: #df9512;\n  border-radius: 30px;\n  padding: 5px;\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center;\n  height: 25%;\n  background: white;\n  width: 100%;\n  background-color: #df9512; }\n  .submit-purchase-button:hover {\n    background-color: #1a5245;\n    cursor: pointer; }\n\ninput {\n  font-size: 1.5em;\n  font-family: \"Cabin\", sans-serif;\n  width: 300px;\n  padding: 4px;\n  border: 7px;\n  margin: 3px;\n  border-radius: 5px; }\n  input:hover {\n    cursor: pointer; }\n\n.log-purchase-form {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  width: 80vw;\n  height: 35vh; }\n\n.submit-purchase-button {\n  width: 30vw;\n  text-align: center;\n  text-align: -webkit-center; }\n\n@media screen and (max-width: 690px) {\n  .welcome {\n    display: none; }\n  .budget-info-display {\n    margin-top: 5vh;\n    width: 90vw; }\n  p {\n    text-align: center; } }\n\n@media screen and (max-width: 330px) {\n  section {\n    display: flex;\n    display: -webkit-flex;\n    display: -ms-box;\n    justify-content: center;\n    align-items: center;\n    width: 100%; }\n  .you-have {\n    display: none; }\n  .budget-info-display {\n    width: 100px;\n    margin-top: 5vh;\n    text-align: center; }\n  .on-beer {\n    width: 90vw;\n    margin-top: -18vh; }\n  .big-budgy {\n    margin-top: 2vh;\n    width: 150px;\n    margin-right: 20vh;\n    font-size: 5em; }\n  .daily-weekly {\n    display: none; }\n  .submit-purchase-button {\n    width: 120%;\n    height: 50px;\n    text-align: center;\n    text-align: -webkit-center;\n    padding-left: 10px; }\n  .footer-links a {\n    font-size: 2em; }\n  .you-have {\n    display: none; } }\n\n.main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\n.past-purchases {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  font-family: \"Cabin\", sans-serif; }\n\n.list-items {\n  list-style: none;\n  word-break: break-all; }\n\n.back-to-home {\n  font-family: \"Lobster Two\", cursive;\n  color: white;\n  background-color: #df9512;\n  border-radius: 30px;\n  height: 100px;\n  width: 300px;\n  font-size: 2em; }\n  .back-to-home:hover {\n    background-color: #1a5245;\n    cursor: pointer; }\n\n.delete-button {\n  font-size: 2vh;\n  font-family: \"Lobster Two\", cursive;\n  color: white;\n  background-color: red;\n  padding: 11px;\n  margin-left: 10px; }\n  .delete-button:hover {\n    background-color: #1a5245;\n    cursor: pointer; }\n\n.list-descriptions {\n  color: black; }\n\n.main-text, h1 {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  font-family: \"Lobster Two\", cursive;\n  color: #fff;\n  font-size: 3em; }\n\n.social-media-button, .google, .google-login, .facebook, .twitter {\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  flex-direction: row;\n  justify-content: center;\n  color: white;\n  outline: none;\n  border: none; }\n\n.google, .google-login {\n  background-color: #DB4C32; }\n\n.facebook {\n  background-color: #1E599B; }\n\n.twitter {\n  background-color: #00ACF5; }\n\n.purchases {\n  font-size: 30px; }\n\n.purchase-wrapper {\n  display: flex;\n  flex-direction: column;\n  height: 100vh;\n  justify-content: center;\n  align-items: center; }\n\n.purchases-header {\n  font-size: 5em; }\n\n.list-items-wrapper {\n  overflow: scroll;\n  height: 600px;\n  margin-top: 50px;\n  border: 2px solid black;\n  background-color: #1a5245; }\n\nbody {\n  color: white;\n  display: flex;\n  display: -webkit-flex;\n  display: -ms-box;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n  width: 100%;\n  background-color: #2FA68B; }\n\n.welcome-title {\n  font-family: \"Lobster Two\", cursive;\n  font-size: 5em; }\n\ninput {\n  text-align: center; }\n", ""]);
 
 	// exports
 
