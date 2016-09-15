@@ -1,7 +1,6 @@
 @import 'variables';
 @import 'mixins';
 
-
 #application {
   @include flex-center;
 }
@@ -70,7 +69,7 @@ section {
   font-family: $secondary-font;
   font-size: 1em;
   text-decoration: underline;
-  &:hover{
+  &:hover {
     cursor: pointer;
     background-color: #1a5245;
   }
@@ -80,7 +79,7 @@ section {
   font-family: $secondary-font;
   font-size: 1em;
   text-decoration: underline;
-  &:hover{
+  &:hover {
     cursor: pointer;
     background-color: #1a5245;
   }
@@ -113,7 +112,7 @@ input {
   border: 7px;
   margin: 3px;
   border-radius: 5px;
-  &:hover{
+  &:hover {
     cursor: pointer;
   }
 }
@@ -131,21 +130,28 @@ input {
 }
 
 @media screen and (max-width: 690px) {
-  .welcome { display: none; }
+
+  .welcome {
+    display: none;
+  }
+
   .budget-info-display {
     margin-top: 5vh;
     width: 90vw;
   }
+
   p {
     text-align: center;
   }
 }
 
 @media screen and (max-width: 330px) {
+
   section {
     @include flex-center;
     width: 100%;
   }
+
   .you-have {
     display: none;
   }
@@ -155,19 +161,23 @@ input {
     margin-top: 5vh;
     text-align: center;
   }
+
   .on-beer {
     width: 90vw;
     margin-top: -18vh;
   }
+
   .big-budgy {
     margin-top: 2vh;
     width: 150px;
     margin-right: 20vh;
     font-size: 5em;
   }
+
   .daily-weekly {
     display: none;
   }
+
   .submit-purchase-button {
     width: 100px;
     height: 50px;
@@ -179,6 +189,7 @@ input {
   .footer-links a {
     font-size: 2em;
   }
+
   .you-have {
     display: none;
   }
