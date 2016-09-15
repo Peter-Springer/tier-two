@@ -96,7 +96,12 @@ section {
 }
 
 .submit-purchase-button {
-  margin-top: 1vh;
+  @include buttons;
+  @include flex-center;
+  height: 25%;
+  background: white;
+  width: 100%;
+  background-color: #df9512;
 }
 
 input {
@@ -154,12 +159,7 @@ input {
     height: 35vh;
   }
   .submit-purchase-button {
-    @include buttons;
-    @include flex-center;
-    height: 25%;
-    background: white;
     width: 120%;
-    background-color: #df9512;
   }
   .footer-links a {
     font-size: 1.5em;
@@ -167,5 +167,4 @@ input {
   .you-have {
     display: none;
   }
-
 }
